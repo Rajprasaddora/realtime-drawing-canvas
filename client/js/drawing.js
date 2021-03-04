@@ -6,7 +6,7 @@ const room = document.getElementById("room").value;
 const roomEntered = document.getElementById("enter-room");
 var isConnected = false;
 var lastPoint = null;
-var socket = io("http://localhost:4200", {
+var socket = io("https://realtime-drawing-canvas-server.herokuapp.com/", {
 	transports: ["websocket", "polling", "flashsocket"],
 });
 

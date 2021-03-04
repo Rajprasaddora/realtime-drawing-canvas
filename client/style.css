@@ -5,9 +5,11 @@ html {
 }
 
 .auth-box {
+	margin-top: 5px;
 	position: fixed;
 	display: flex;
 	justify-content: space-around;
+	align-self: center;
 	width: 100%;
 	height: 4vmax;
 	box-sizing: border-box;
@@ -17,8 +19,6 @@ html {
 #name,
 #room {
 	width: 25%;
-	margin-top: 5px;
-	margin-bottom: 5px;
 	border-radius: 6px;
 	padding: 2px;
 	padding-left: 10px;
