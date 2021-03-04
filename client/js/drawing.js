@@ -74,9 +74,8 @@ function drawLineRemote(lastX, lastY, curX, curY) {
 	context.lineWidth = 5;
 	context.lineCap = "round";
 	context.stroke();
-	lastPoint = { x: curX, y: curY };
 }
-function drawLine(lastX, lastY, curX, curY) {
+function drawLine(lastX, lastY, curX, curY, remote) {
 	// console.log("drawing", curX, curY);
 	// console.log(typeof curX);
 	context.beginPath();
