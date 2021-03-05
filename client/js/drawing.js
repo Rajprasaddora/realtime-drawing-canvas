@@ -1,9 +1,12 @@
 var canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
-const user = document.getElementById("name").value;
-const room = document.getElementById("room").value;
-const roomEntered = document.getElementById("enter-room");
+const user = document.getElementById("name");
+const room = document.getElementById("room");
+const enterRoom = document.getElementById("enter-room");
+const overlay = document.getElementById("overlay");
+const clearCanvas = document.getElementById("clear-canvas");
+
 var isConnected = false;
 var lastPoint = null;
 var socket = io("https://realtime-drawing-canvas-server.herokuapp.com/", {
@@ -19,10 +22,16 @@ function resize() {
 	screenWidth = window.innerWidth;
 	screenHeight = window.innerHeight;
 }
+clearCanvas.onclick = (e) => {
+	clearLast();
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	overlay.style.display = "block";
+};
 function move(e) {
 	if (e.buttons) {
 		if (!lastPoint) {
 			lastPoint = { x: e.offsetX, y: e.offsetY };
+			overlay.style.display = "none";
 			return;
 		}
 		if (isConnected) {
@@ -31,8 +40,8 @@ function move(e) {
 				lastY: lastPoint.y,
 				curX: e.offsetX,
 				curY: e.offsetY,
-				user: user,
-				room: room,
+				user: user.value,
+				room: room.value,
 				width: screenWidth,
 				height: screenHeight,
 			});
@@ -41,9 +50,14 @@ function move(e) {
 		drawLine(lastPoint.x, lastPoint.y, e.offsetX, e.offsetY);
 	}
 }
-roomEntered.onclick = (e) => {
+enterRoom.onclick = (e) => {
+	if (!user.value || !room.value) {
+		console.log("empty");
+		return;
+	}
+	enterRoom.classList.add("selected");
 	isConnected = true;
-	socket.emit("join", { user: user, room: room });
+	socket.emit("join", { user: user.value, room: room.value });
 	socket.on(
 		"draw",
 		({ lastX, lastY, curX, curY, user, room, width, height }) => {
@@ -63,6 +77,10 @@ roomEntered.onclick = (e) => {
 			);
 		}
 	);
+
+	user.disabled = true;
+	room.disabled = true;
+	enterRoom.disabled = true;
 };
 function drawLineRemote(lastX, lastY, curX, curY) {
 	// console.log("drawing", curX, curY);

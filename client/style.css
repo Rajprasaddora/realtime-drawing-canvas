@@ -2,6 +2,7 @@ body,
 html {
 	margin: 0px;
 	padding: 0px;
+	overflow: hidden;
 }
 
 .auth-box {
@@ -16,6 +17,7 @@ html {
 	/* background-color: blue;
 	border: 10px solid red; */
 }
+
 #name,
 #room {
 	width: 25%;
@@ -25,11 +27,23 @@ html {
 	font-size: 1vmax;
 	box-shadow: 5px 10px #888888;
 }
+#clear-canvas {
+	position: absolute;
+	top: 97%;
+	left: 50%;
+	transform: translate(-50%, 0);
+	z-index: 2;
+}
+.selected {
+	background-color: black;
+	color: white;
+	outline: none;
+}
 
 #name:focus,
 #room:focus {
 	outline: none;
-	box-shadow: 5px 10px blue;
+	box-shadow: 5px 10px black;
 }
 #enter-room {
 	width: 10%;
@@ -39,9 +53,21 @@ html {
 	font-size: 1vmax;
 	box-shadow: 5px 10px #888888;
 }
+#overlay {
+	position: fixed;
+	padding-left: 20%;
+	padding-right: 20%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	outline: 3px dashed gray;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	color: gray;
+}
 #enter-room:focus {
 	outline: none;
-	background-color: skyblue;
 }
 
 @media only screen and (max-width: 768px) {
